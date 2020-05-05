@@ -54,6 +54,7 @@
     <Compile Include="Builders\BerlinClockRowsBuilderBase.cs" />
     <Compile Include="Builders\HourRowsBuilder.cs" />
     <Compile Include="Builders\MinuteRowsBuilder.cs" />
+    <Compile Include="Builders\YellowLampRowBuilder.cs" />
     <Compile Include="Extensions\IntExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Models\BerlinClockEntity.cs" />

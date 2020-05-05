@@ -1,5 +1,4 @@
-﻿using BerlinClock.Extensions;
-using BerlinClock.Models;
+﻿using BerlinClock.Models;
 
 namespace BerlinClock.Builders
 {
@@ -12,26 +11,31 @@ namespace BerlinClock.Builders
     {
         private readonly IHourRowsBuilder _hourRowsBuilder;
         private readonly IMinuteRowsBuilder _minuteRowsBuilder;
+        private readonly IYellowLampRowBuilder _yellowLampRowBuilder;
 
-        public BerlinClockEntityBuilder() : this(new HourRowsBuilder(), new MinuteRowsBuilder())
+        public BerlinClockEntityBuilder() : this(new HourRowsBuilder(), new MinuteRowsBuilder(),
+            new YellowLampRowBuilder())
         {
 
         }
 
-        public BerlinClockEntityBuilder(IHourRowsBuilder hourRowsBuilder, IMinuteRowsBuilder minuteRowsBuilder)
+        public BerlinClockEntityBuilder(IHourRowsBuilder hourRowsBuilder, IMinuteRowsBuilder minuteRowsBuilder,
+            IYellowLampRowBuilder yellowLampRowBuilder)
         {
             _hourRowsBuilder = hourRowsBuilder;
             _minuteRowsBuilder = minuteRowsBuilder;
+            _yellowLampRowBuilder = yellowLampRowBuilder;
         }
 
         public BerlinClockEntity Build(Time time)
         {
             var hourRows = _hourRowsBuilder.Build(time);
             var minuteRows = _minuteRowsBuilder.Build(time);
+            var yellowLampRow = _yellowLampRowBuilder.Build(time);
 
             return new BerlinClockEntity
             {
-                YellowLampSign = time.Second.IsEven() ? 'Y' : 'O',
+                YellowLampRow = yellowLampRow,
                 FirstHoursRow = hourRows.FirstRow,
                 SecondHoursRow = hourRows.SecondRow,
                 FirstMinutesRow = minuteRows.FirstRow,

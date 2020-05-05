@@ -7,6 +7,9 @@ namespace BerlinClock.Extensions
     {
         public static string ReplaceEveryNthOccurence(this string value, char valueToReplace, char newValue, int n)
         {
+            if (string.IsNullOrWhiteSpace(value))
+                return value;
+
             var chars = value.Select((val, index) => 
                 val == valueToReplace && (index + 1) % n == 0 ? newValue : val);
 

@@ -20,9 +20,9 @@ namespace BerlinClock.Builders
 
         protected override char TurnedOnLampSign => 'R';
         protected override int FirstRowLampsAmount => 4;
-        protected override int FirstRowLampsValue => 5;
+        protected override int FirstRowLampValue => 5;
         protected override int SecondRowLampsAmount => 4;
-        protected override int SecondRowLampsValue => 1;
+        protected override int SecondRowLampValue => 1;
         protected override int ExtractTimePart(Time time)
         {
             return time.Hour;

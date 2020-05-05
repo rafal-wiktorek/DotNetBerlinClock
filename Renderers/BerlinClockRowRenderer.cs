@@ -1,4 +1,5 @@
 ﻿using BerlinClock.Models;
+using System;
 using System.Text;
 
 namespace BerlinClock.Renderers
@@ -14,6 +15,9 @@ namespace BerlinClock.Renderers
 
         public string Render(BerlinClockRendererRequest request)
         {
+            if (request.AmountOfTurnedOffLamps < 0 || request.AmountOfTurnedOnLamps < 0)
+                throw new Exception("Cannot render negative values");
+
             var stringBuilder = new StringBuilder();
             stringBuilder.Append(request.TurnedOnLampSign, request.AmountOfTurnedOnLamps);
             stringBuilder.Append(TurnedOffLampSign, request.AmountOfTurnedOffLamps);

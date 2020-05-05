@@ -12,12 +12,11 @@ namespace BerlinClock.Builders
     public abstract class BerlinClockRowsBuilderBase : IBerlinClockRowsBuilder
     {
         protected abstract int FirstRowLampsAmount { get; }
-        protected abstract int FirstRowLampsValue { get; }
+        protected abstract int FirstRowLampValue { get; }
         protected abstract int SecondRowLampsAmount { get; }
-        protected abstract int SecondRowLampsValue { get; }
+        protected abstract int SecondRowLampValue { get; }
         protected abstract char TurnedOnLampSign { get; }
         protected virtual Func<string, string> FirstRowAdditionalFormatting { get; }
-        protected virtual Func<string, string> SecondRowAdditionalFormatting { get; }
 
         private readonly IBerlinClockRowRenderer _berlinClockRowRenderer;
 
@@ -29,10 +28,10 @@ namespace BerlinClock.Builders
         public BerlinClockRows Build(Time time)
         {
             var timePart = ExtractTimePart(time);
-            var amountOfTurnedOnLampsAtFirstRow = (int)timePart / FirstRowLampsValue;
+            var amountOfTurnedOnLampsAtFirstRow = timePart / FirstRowLampValue;
             var amountOfTurnedOffLampsAtFirstRow = FirstRowLampsAmount - amountOfTurnedOnLampsAtFirstRow;
 
-            var amountOfTurnedOnLampsAtSecondRow = (int)(timePart - amountOfTurnedOnLampsAtFirstRow * FirstRowLampsValue) / SecondRowLampsValue;
+            var amountOfTurnedOnLampsAtSecondRow = (timePart - (amountOfTurnedOnLampsAtFirstRow * FirstRowLampValue)) / SecondRowLampValue;
             var amountOfTurnedOffLampsAtSecondRow = SecondRowLampsAmount - amountOfTurnedOnLampsAtSecondRow;
 
             return new BerlinClockRows
@@ -48,8 +47,7 @@ namespace BerlinClock.Builders
                 {
                     AmountOfTurnedOnLamps = amountOfTurnedOnLampsAtSecondRow,
                     AmountOfTurnedOffLamps = amountOfTurnedOffLampsAtSecondRow,
-                    TurnedOnLampSign = TurnedOnLampSign,
-                    AdditionalFormatting = SecondRowAdditionalFormatting
+                    TurnedOnLampSign = TurnedOnLampSign
                 })
             };
         }

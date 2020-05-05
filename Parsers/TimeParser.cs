@@ -10,9 +10,13 @@ namespace BerlinClock.Parsers
 
     public class TimeParser : ITimeParser
     {
+        private const char Separator = ':';
         public Time Parse(string time)
         {
-            var timeParts = time.Split(':');
+            if (time == null)
+                throw new Exception("Time must not be null");
+
+            var timeParts = time.Split(Separator);
             if (timeParts.Length != 3)
                 throw new Exception("Wrong time format");
 
